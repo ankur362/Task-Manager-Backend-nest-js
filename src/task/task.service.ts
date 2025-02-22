@@ -77,15 +77,16 @@ export class TaskService {
     return tasks;
   }
   async completeTask(id: string): Promise<Task> {
-    const updatedTask = await this.taskModel.findByIdAndUpdate(
-      id,
-      { Completed_task: true },
-      { new: true } 
-    ).exec();
-
-    if (!updatedTask) {
-      throw new NotFoundException(`Task with ID ${id} not found`);
+    const task = await this.taskModel.findById(id).exec();
+    
+    if (!task) {
+        throw new NotFoundException(`Task with ID ${id} not found`);
     }
+
+    
+    task.Completed_task = !task.Completed_task;
+
+    const updatedTask = await task.save(); 
 
     return updatedTask;
   }
