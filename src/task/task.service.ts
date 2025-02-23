@@ -7,7 +7,7 @@ import { Model } from 'mongoose';
 export class TaskService {
   constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) {}
 
-  // ✅ Create Task
+  
   async createTask(createTaskData: {
     title: string;
     description: string;
@@ -90,4 +90,9 @@ export class TaskService {
 
     return updatedTask;
   }
+  async completedTask(): Promise<Task[]>{
+    return  await this.taskModel.find({Completed_task:true}).exec()
+
+  }
+
 }

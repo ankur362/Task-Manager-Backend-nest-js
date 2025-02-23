@@ -37,4 +37,10 @@ export class TaskController {
   async completeTask(@Param('id') id: string): Promise<Task> {
     return this.taskService.completeTask(id);
   }
+
+  @Get('completed-tasks')
+  async completedTask(){
+    return this.taskService.completedTask()
+
+  }
 }
